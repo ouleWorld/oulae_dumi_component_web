@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "antd": "^5.3.2",
+    "gh-pages": "^5.0.0",
     "immer": "^9.0.21"
   },
   "devDependencies": {
