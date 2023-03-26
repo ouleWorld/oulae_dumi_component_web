@@ -1,8 +1,8 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
-  base: '/oulae_dumi_component_web',
-  publicPath: '/oulae_dumi_component_web',
+  base: '/',
+  publicPath: '/',
   themeConfig: {
     name: 'oulae_dumi_component_web',
   },
