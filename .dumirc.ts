@@ -1,8 +1,10 @@
 import { defineConfig } from 'dumi';
 
+const repo = 'oulae_dumi_component_web';
+
 export default defineConfig({
-  base: '/',
-  publicPath: '/',
+  base: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
   themeConfig: {
     name: 'oulae_dumi_component_web',
   },
