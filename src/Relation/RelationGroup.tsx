@@ -1,9 +1,19 @@
 import { Button, Select } from 'antd';
+import * as React from 'react';
 import RelationItem, { IhandleTermChange } from './RelationItem';
 import { EnumLogics, Item, Relation } from './RelationTree';
 
 const { Option } = Select;
 export const posSeparator = '_';
+
+const getNewPos = (pos: string, i: number) => {
+  // 如果当前项是整个 value (即组件的起始项)时，新位置即当前序号
+  return pos ? `${pos}${posSeparator}${i}` : String(i);
+};
+
+export const getArrPos = (pos: string) => {
+  return (pos && pos.split(posSeparator)) || [];
+};
 
 // 条件组逻辑内容
 const RELATIONAL = [
@@ -87,10 +97,7 @@ const RelationGroup: React.FC<IRelationGroup> = ({
         >
           {RELATIONAL.map((ele, index) => {
             return (
-              <Option
-                key={index}
-                value={ele.value}
-              >
+              <Option key={index} value={ele.value}>
                 {ele.label}
               </Option>
             );
@@ -158,15 +165,6 @@ const RelationGroup: React.FC<IRelationGroup> = ({
       </div>
     </div>
   );
-};
-
-const getNewPos = (pos: string, i: number) => {
-  // 如果当前项是整个 value (即组件的起始项)时，新位置即当前序号
-  return pos ? `${pos}${posSeparator}${i}` : String(i);
-};
-
-export const getArrPos = (pos: string) => {
-  return (pos && pos.split(posSeparator)) || [];
 };
 
 export default RelationGroup;

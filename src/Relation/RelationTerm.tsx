@@ -1,4 +1,5 @@
 import { Form, Input, Select } from 'antd';
+import * as React from 'react';
 import { useEffect } from 'react';
 import { Item } from './RelationTree';
 
@@ -88,10 +89,7 @@ const RelationTerm: React.FC<IRelationTerm> = ({
           >
             {valueMap[key].map((item, index) => {
               return (
-                <Option
-                  key={index}
-                  value={item.value}
-                >
+                <Option key={index} value={item.value}>
                   {item.label}
                 </Option>
               );
@@ -173,10 +171,7 @@ const RelationTerm: React.FC<IRelationTerm> = ({
           >
             {keyMap.map((item, index) => {
               return (
-                <Option
-                  key={index}
-                  value={item.value}
-                >
+                <Option key={index} value={item.value}>
                   {item.label}
                 </Option>
               );
@@ -205,10 +200,7 @@ const RelationTerm: React.FC<IRelationTerm> = ({
           >
             {handleMap.map((item, index) => {
               return (
-                <Option
-                  key={index}
-                  value={item.value}
-                >
+                <Option key={index} value={item.value}>
                   {item.label}
                 </Option>
               );

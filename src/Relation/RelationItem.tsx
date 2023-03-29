@@ -1,11 +1,12 @@
 import { Button } from 'antd';
+import * as React from 'react';
 import { Item } from './RelationTree';
 
 export interface IhandleTermChange {
   (
     data: Item,
     pos: string,
-    handleTermChange: (value: Item) => void
+    handleTermChange: (value: Item) => void,
   ): React.ReactNode;
 }
 
@@ -39,7 +40,7 @@ const RelationItem: React.FC<IRelationItem> = ({
 
   if (typeof setElementTerm !== 'function') {
     console.error(
-      'setElementTerm 属性必须设置，且必须是返回 ReactElement 的Function'
+      'setElementTerm 属性必须设置，且必须是返回 ReactElement 的Function',
     );
     return null;
   }

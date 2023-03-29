@@ -1,3 +1,4 @@
+import * as React from 'react';
 import RelationTerm, { IConfigMap } from './RelationTerm';
 import RelationTree, { Item, Relation } from './RelationTree';
 
