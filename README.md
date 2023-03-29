@@ -36,5 +36,5 @@ $ npm version patch -m "build: release %s"
 $ npm run prepublishOnly
 
 # 发布
-$ npm run build
+$ npm publish
 ```
