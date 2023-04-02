@@ -1,4 +1,5 @@
 import { Form, Input, Select } from 'antd';
+import * as React from 'react';
 import { useEffect } from 'react';
 var Option = Select.Option;
 var RelationTerm = function RelationTerm(_ref) {

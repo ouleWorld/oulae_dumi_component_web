@@ -5,92 +5,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 import produce from 'immer';
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import RelationGroup, { getArrPos } from "./RelationGroup";
 import "./RelationTree.less";
-
-// 逻辑关系的枚举值
-export var EnumLogics;
-(function (EnumLogics) {
-  EnumLogics["AND"] = "and";
-  EnumLogics["OR"] = "or";
-})(EnumLogics || (EnumLogics = {}));
-var EnumRelationOperation; // 修改条件内容
-// 为了兼容不同的配置类型类型，这里使用 any 进行定义
-(function (EnumRelationOperation) {
-  EnumRelationOperation["addGroup"] = "addGroup";
-  EnumRelationOperation["addTerm"] = "addTerm";
-  EnumRelationOperation["changeOps"] = "changeOps";
-  EnumRelationOperation["deleteTerm"] = "deleteTerm";
-  EnumRelationOperation["changeTerm"] = "changeTerm";
-})(EnumRelationOperation || (EnumRelationOperation = {}));
-// 条件组合组件默认数据
-var defaultRelation = {
-  ops: EnumLogics.AND,
-  children: [{}]
-};
-var RelationTree = function RelationTree(_ref) {
-  var value = _ref.value,
-    onValueChange = _ref.onValueChange,
-    setElementTerm = _ref.setElementTerm,
-    fromItemOnChange = _ref.fromItemOnChange;
-  var _useState = useState(value || defaultRelation),
-    _useState2 = _slicedToArray(_useState, 2),
-    relations = _useState2[0],
-    setRelations = _useState2[1];
-  useEffect(function () {
-    fromItemOnChange && fromItemOnChange(relations);
-  }, [relations]);
-
-  /**
-   * Q: 为什么 pos 是一个这么奇怪的类型呢？
-   * A: 感觉是为了减少渲染，因为 pos 不是一个对象而是一个字符串
-   */
-
-  /**
-   * @description: 表单值变化时，更新 relations 的回调函数
-   * @param {string} pos 位置字符串，形如：0_0_1
-   * @param {Item} record 变更的单项值
-   * @param {string} type 操作类型，如：addTerm, addGroup, changeOps(改变逻辑运算符 &&、||), changeTerm, deleteTerm
-   * @return {*}
-   */
-  var setOnChange = function setOnChange(pos, record, type) {
-    var value = getNewValue(relations, pos, type, record);
-    if (typeof onValueChange === 'function') {
-      onValueChange(value, type, record);
-    }
-    setRelations(value);
-  };
-  var handleAddGroup = function handleAddGroup(pos, record) {
-    setOnChange(pos, record, EnumRelationOperation.addGroup);
-  };
-  var handleAddTerm = function handleAddTerm(pos, record) {
-    setOnChange(pos, record, EnumRelationOperation.addTerm);
-  };
-  var handleOpsChange = function handleOpsChange(pos, record) {
-    setOnChange(pos, record, EnumRelationOperation.changeOps);
-  };
-  var handleDeleteTerm = function handleDeleteTerm(pos, record) {
-    setOnChange(pos, record, EnumRelationOperation.deleteTerm);
-  };
-  var handleTermChange = function handleTermChange(pos, record) {
-    setOnChange(pos, record, EnumRelationOperation.changeTerm);
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "vui-relation-tree"
-  }, /*#__PURE__*/React.createElement(RelationGroup
-  // 最外层的配置是 ""
-  , {
-    pos: "",
-    data: relations,
-    setElementTerm: setElementTerm,
-    onAddGroup: handleAddGroup,
-    onAddTerm: handleAddTerm,
-    onOpsChange: handleOpsChange,
-    onDeleteTerm: handleDeleteTerm,
-    onTermChange: handleTermChange
-  }));
-};
 
 /**
  * @param {object} data RelationTree 完整的 value
@@ -167,5 +85,90 @@ var getNewValue = function getNewValue() {
       }
     });
   });
+};
+
+// 逻辑关系的枚举值
+export var EnumLogics;
+(function (EnumLogics) {
+  EnumLogics["AND"] = "and";
+  EnumLogics["OR"] = "or";
+})(EnumLogics || (EnumLogics = {}));
+var EnumRelationOperation; // 修改条件内容
+// 为了兼容不同的配置类型类型，这里使用 any 进行定义
+(function (EnumRelationOperation) {
+  EnumRelationOperation["addGroup"] = "addGroup";
+  EnumRelationOperation["addTerm"] = "addTerm";
+  EnumRelationOperation["changeOps"] = "changeOps";
+  EnumRelationOperation["deleteTerm"] = "deleteTerm";
+  EnumRelationOperation["changeTerm"] = "changeTerm";
+})(EnumRelationOperation || (EnumRelationOperation = {}));
+// 条件组合组件默认数据
+var defaultRelation = {
+  ops: EnumLogics.AND,
+  children: [{}]
+};
+var RelationTree = function RelationTree(_ref) {
+  var value = _ref.value,
+    onValueChange = _ref.onValueChange,
+    setElementTerm = _ref.setElementTerm,
+    fromItemOnChange = _ref.fromItemOnChange;
+  var _useState = useState(value || defaultRelation),
+    _useState2 = _slicedToArray(_useState, 2),
+    relations = _useState2[0],
+    setRelations = _useState2[1];
+  useEffect(function () {
+    if (fromItemOnChange) {
+      fromItemOnChange(relations);
+    }
+  }, [relations]);
+
+  /**
+   * Q: 为什么 pos 是一个这么奇怪的类型呢？
+   * A: 感觉是为了减少渲染，因为 pos 不是一个对象而是一个字符串
+   */
+
+  /**
+   * @description: 表单值变化时，更新 relations 的回调函数
+   * @param {string} pos 位置字符串，形如：0_0_1
+   * @param {Item} record 变更的单项值
+   * @param {string} type 操作类型，如：addTerm, addGroup, changeOps(改变逻辑运算符 &&、||), changeTerm, deleteTerm
+   * @return {*}
+   */
+  var setOnChange = function setOnChange(pos, record, type) {
+    var value = getNewValue(relations, pos, type, record);
+    if (typeof onValueChange === 'function') {
+      onValueChange(value, type, record);
+    }
+    setRelations(value);
+  };
+  var handleAddGroup = function handleAddGroup(pos, record) {
+    setOnChange(pos, record, EnumRelationOperation.addGroup);
+  };
+  var handleAddTerm = function handleAddTerm(pos, record) {
+    setOnChange(pos, record, EnumRelationOperation.addTerm);
+  };
+  var handleOpsChange = function handleOpsChange(pos, record) {
+    setOnChange(pos, record, EnumRelationOperation.changeOps);
+  };
+  var handleDeleteTerm = function handleDeleteTerm(pos, record) {
+    setOnChange(pos, record, EnumRelationOperation.deleteTerm);
+  };
+  var handleTermChange = function handleTermChange(pos, record) {
+    setOnChange(pos, record, EnumRelationOperation.changeTerm);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "vui-relation-tree"
+  }, /*#__PURE__*/React.createElement(RelationGroup
+  // 最外层的配置是 ""
+  , {
+    pos: "",
+    data: relations,
+    setElementTerm: setElementTerm,
+    onAddGroup: handleAddGroup,
+    onAddTerm: handleAddTerm,
+    onOpsChange: handleOpsChange,
+    onDeleteTerm: handleDeleteTerm,
+    onTermChange: handleTermChange
+  }));
 };
 export default RelationTree;

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import RelationTerm from "./RelationTerm";
 import RelationTree from "./RelationTree";
 

@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from 'react';
 import { Item } from './RelationTree';
 export interface IhandleTermChange {
     (data: Item, pos: string, handleTermChange: (value: Item) => void): React.ReactNode;

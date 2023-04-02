@@ -5,10 +5,18 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 import { Button, Select } from 'antd';
+import * as React from 'react';
 import RelationItem from "./RelationItem";
 import { EnumLogics } from "./RelationTree";
 var Option = Select.Option;
 export var posSeparator = '_';
+var getNewPos = function getNewPos(pos, i) {
+  // 如果当前项是整个 value (即组件的起始项)时，新位置即当前序号
+  return pos ? "".concat(pos).concat(posSeparator).concat(i) : String(i);
+};
+export var getArrPos = function getArrPos(pos) {
+  return pos && pos.split(posSeparator) || [];
+};
 
 // 条件组逻辑内容
 var RELATIONAL = [{
@@ -118,12 +126,5 @@ var RelationGroup = function RelationGroup(_ref) {
     className: "add-group",
     onClick: handleAddGroupClick
   }, "\u52A0\u6761\u4EF6\u7EC4"))));
-};
-var getNewPos = function getNewPos(pos, i) {
-  // 如果当前项是整个 value (即组件的起始项)时，新位置即当前序号
-  return pos ? "".concat(pos).concat(posSeparator).concat(i) : String(i);
-};
-export var getArrPos = function getArrPos(pos) {
-  return pos && pos.split(posSeparator) || [];
 };
 export default RelationGroup;

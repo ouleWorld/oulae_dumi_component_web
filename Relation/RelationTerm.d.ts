@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from 'react';
 import { Item } from './RelationTree';
 declare type IValueType = string | number | boolean;
 export interface IConfigMap {

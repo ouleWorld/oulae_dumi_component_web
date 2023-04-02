@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from 'react';
 import { IConfigMap } from './RelationTerm';
 import { Item, Relation } from './RelationTree';
 /**
