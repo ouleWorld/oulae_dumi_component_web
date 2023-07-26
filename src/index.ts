@@ -1,4 +1,5 @@
+import PopoverDialog from './PopoverDialog';
 import RelationComponent from './Relation';
 
 export * from './Relation';
-export { RelationComponent };
+export { RelationComponent, PopoverDialog };
