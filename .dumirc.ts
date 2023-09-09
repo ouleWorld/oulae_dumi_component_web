@@ -7,7 +7,7 @@ export default defineConfig({
   publicPath: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
   outputPath: 'docs-dist',
   themeConfig: {
-    name: 'oulae_dumi_component_web',
+    name: 'oulae_web',
   },
   apiParser: {},
   resolve: {
