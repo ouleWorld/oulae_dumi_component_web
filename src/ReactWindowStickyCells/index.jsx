@@ -162,11 +162,11 @@ function useInnerElementType(
         if (fixedStyle?.top) {
           for (let k = 0; k < fixedStyle?.top; k++) {
             topContainer[k] = [];
-            for (
-              let i = fixedStyle?.left || 0;
-              i <= shownColumnsCount;
-              i += 1
-            ) {
+            let temp = shownColumnsCount;
+            if (fixedStyle?.right) {
+              temp -= fixedStyle?.right;
+            }
+            for (let i = fixedStyle?.left || 0; i <= temp; i += 1) {
               const columnIndex = shownIndecies.from.column + i;
               const rowIndex = k;
               const width = columnWidth(columnIndex);
@@ -202,7 +202,7 @@ function useInnerElementType(
           }
         }
 
-        // 做容器逻辑
+        // 左容器逻辑
         const leftContainer = [];
         if (fixedStyle?.left) {
           // k 表示 固定列-left 的序号，方向是从左到右
@@ -324,11 +324,11 @@ function useInnerElementType(
         if (fixedStyle?.bottom) {
           for (let k = 0; k < fixedStyle?.bottom; k++) {
             bottomContainer[k] = [];
-            for (
-              let i = fixedStyle?.left || 0;
-              i <= shownColumnsCount;
-              i += 1
-            ) {
+            let temp = shownColumnsCount;
+            if (fixedStyle?.right) {
+              temp -= fixedStyle?.right;
+            }
+            for (let i = fixedStyle?.left || 0; i <= temp; i += 1) {
               const columnIndex = shownIndecies.from.column + i;
               const rowIndex = rowCount - k - 1;
               const width = columnWidth(columnIndex);
